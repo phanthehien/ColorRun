@@ -14,9 +14,10 @@ namespace ColorRun
         private int _currentDimension = 4;
         private readonly ContentPage _rootPage;
         private readonly Random _random = new Random();
+        private readonly RelativeLayout _gameLayout;
 
         public ColorGrid Grid
-        { 
+        {
             get
             {
                 return _colorGrid;
@@ -26,6 +27,13 @@ namespace ColorRun
         public ColorGame(ContentPage rootPage)
         {
             _rootPage = rootPage;
+            _gameLayout = new RelativeLayout()
+            {
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+            };
+            
+            _rootPage.Content = _gameLayout;
         }
 
         public void Play()
@@ -35,9 +43,9 @@ namespace ColorRun
 
         private void Box_Clicked(ColorBox colorBox)
         {
-            if(colorBox.Position == _colorGrid.ChosenPosition)
+            if (colorBox.Position == _colorGrid.ChosenPosition)
             {
-                PlayGame();                
+                PlayGame();
             }
         }
 
@@ -45,14 +53,21 @@ namespace ColorRun
         {
             var color = CreateRandomColor();
 
-            if(_currentDimension == 8)
+            if (_currentDimension >= 8)
             {
                 _currentDimension = _random.Next(_currentDimension - 3, _currentDimension);
             }
 
-            _colorGrid = new ColorGrid(_currentDimension, color, color.MultiplyAlpha(0.8));
+            if (_colorGrid != null)
+            {
+                _gameLayout.Children.Remove(_colorGrid);
+            }
+            _colorGrid = new ColorGrid(++_currentDimension, color, color.MultiplyAlpha(0.85f));
             _colorGrid.BoxClick += Box_Clicked;
-            _rootPage.Content = _colorGrid;
+            _gameLayout.Children.Add(_colorGrid, Constraint.RelativeToParent((parent) =>
+            {
+                return 0;
+            }));
         }
 
         private Color CreateRandomColor()
@@ -62,7 +77,8 @@ namespace ColorRun
             int b = _random.Next(0, 255);
 
             return Color.FromRgba(r, g, b, 255);
-            
+
         }
     }
 }
+
