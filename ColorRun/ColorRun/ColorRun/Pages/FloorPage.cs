@@ -15,7 +15,7 @@ namespace ColorRun.Pages
         public FloorPage()
         {
             _game = new ColorGame(this);
-            _game.Play();
+            //_game.Play();
         }
     }
 }
