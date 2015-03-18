@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/ColorRun/ColorRun/ColorRun/bin/Debug
+/ColorRun/ColorRun/ColorRun/obj/Debug
+/ColorRun/ColorRun/ColorRun.Droid/bin/Debug
+/ColorRun/ColorRun/ColorRun.Droid/obj/Debug
