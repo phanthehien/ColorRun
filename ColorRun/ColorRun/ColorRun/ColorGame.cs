@@ -15,6 +15,7 @@ namespace ColorRun
         private readonly ContentPage _rootPage;
         private readonly Random _random = new Random();
         private readonly RelativeLayout _gameLayout;
+        private readonly ContentView _contentView;
 
         public ColorGrid Grid
         {
@@ -32,8 +33,48 @@ namespace ColorRun
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center,
             };
-            
+
+            var heading = new Label
+            {
+                Text = "RelativeLayout Example",
+                TextColor = Color.Red,
+            };
+
+            var relativelyPositioned = new Label
+            {
+                Text = "Positioned relative to my parent."
+            };
+
+            _contentView = new ContentView();
+
+            //_gameLayout.Children.Add(heading, Constraint.RelativeToParent((parent) =>
+            //{
+            //    return 0;
+            //}), Constraint.RelativeToParent((parent) =>
+            //{
+            //    return 0;
+            //}));
+
+            _gameLayout.Children.Add(_contentView, Constraint.RelativeToParent((parent) =>
+            {
+                return 0;
+            }), Constraint.RelativeToParent((parent) =>
+            {
+                return 0;
+            }));
+
+
+            //_gameLayout.Children.Add(relativelyPositioned,
+            //    Constraint.RelativeToParent((parent) =>
+            //    {
+            //        return parent.Width / 3;
+            //    }),
+            //    Constraint.RelativeToParent((parent) =>
+            //    {
+            //        return parent.Height / 2;
+            //    }));
             _rootPage.Content = _gameLayout;
+
         }
 
         public void Play()
@@ -58,16 +99,9 @@ namespace ColorRun
                 _currentDimension = _random.Next(_currentDimension - 3, _currentDimension);
             }
 
-            if (_colorGrid != null)
-            {
-                _gameLayout.Children.Remove(_colorGrid);
-            }
             _colorGrid = new ColorGrid(++_currentDimension, color, color.MultiplyAlpha(0.85f));
             _colorGrid.BoxClick += Box_Clicked;
-            _gameLayout.Children.Add(_colorGrid, Constraint.RelativeToParent((parent) =>
-            {
-                return 0;
-            }));
+            _contentView.Content = _colorGrid;
         }
 
         private Color CreateRandomColor()
