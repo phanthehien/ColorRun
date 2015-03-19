@@ -62,7 +62,7 @@ namespace ColorRun.Controls
             _numberOfCell = numberOfCell;
             _primaryColor = primaryColor;
             _secondaryColor = secondaryColor;
-            _boxWidth = 30;
+            _boxWidth = 40;
 
             HorizontalOptions = LayoutOptions.Center;
             VerticalOptions = LayoutOptions.Center;
@@ -77,7 +77,7 @@ namespace ColorRun.Controls
             {
                 for (int j = 0; j < numberOfCell; j++)
                 {
-                    var boxView = new ColorBox(this, i, j, 30);
+                    var boxView = new ColorBox(this, i, j, _boxWidth);
                     boxView.Color = boxView.Position == _chosenPosition ? secondaryColor : primaryColor;
                     boxView.BoxClick = ColorBox_Click;
                     this.Children.Add(boxView, i, j);

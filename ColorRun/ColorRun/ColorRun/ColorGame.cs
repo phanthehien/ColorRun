@@ -11,7 +11,7 @@ namespace ColorRun
 {
     public class ColorGame
     {
-        private const int MAX_TIME = 5;
+        private const int MAX_TIME = 60;
         private const int INIT_DIMENSION = 1;
 
         private readonly object _locker = new object();
@@ -152,7 +152,7 @@ namespace ColorRun
                     //        }, TaskContinuationOptions.ExecuteSynchronously);
 
                     _rootPage.DisplayAlert("Game Over",
-                        string.Format("Your score: {0}.\nDo you want to share it?", _score), "Replay")
+                        string.Format("Your score: {0}.", _score), "Replay")
                         .ContinueWith(
                             (isYes) =>
                             {
