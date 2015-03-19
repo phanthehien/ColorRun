@@ -11,7 +11,7 @@ namespace ColorRun
 {
     public class ColorGame
     {
-        private const int MAX_TIME = 60;
+        private const int MAX_TIME = 5;
         private const int INIT_DIMENSION = 1;
 
         private readonly object _locker = new object();
@@ -44,7 +44,7 @@ namespace ColorRun
 
             _lblHeading = new Label
             {
-                Text = "Color Run\n(Developed by phanthehien@gmail.com)",
+                Text = "Color Run", //\n(Developed by phanthehien@gmail.com)",
                 TextColor = Color.Red,
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
@@ -72,8 +72,8 @@ namespace ColorRun
                 Text = "Play",
                 TextColor = Color.Red,
                 WidthRequest = 200,
-                BorderColor =  Color.Blue,
-                BackgroundColor =  Color.Silver,
+                BorderColor = Color.Blue,
+                BackgroundColor = Color.Silver,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.CenterAndExpand
@@ -136,16 +136,27 @@ namespace ColorRun
                 if (_time <= 0)
                 {
                     _isContinue = false;
+                    //_rootPage.DisplayAlert("Game Over",
+                    //    string.Format("Your score: {0}.\nDo you want to share it?", _score), "Yes", "No")
+                    //    .ContinueWith(
+                    //        (isYes) =>
+                    //        {
+                    //            if (isYes.Result)
+                    //            {
+                    //                _btnPlay.IsVisible = true;
+                    //            }
+                    //            else
+                    //            {
+                    //                Play();
+                    //            }
+                    //        }, TaskContinuationOptions.ExecuteSynchronously);
+
                     _rootPage.DisplayAlert("Game Over",
-                        string.Format("Your score: {0}.\nDo you want to share it?", _score), "Yes", "No")
+                        string.Format("Your score: {0}.\nDo you want to share it?", _score), "Replay")
                         .ContinueWith(
                             (isYes) =>
                             {
-                                if (isYes.Result)
-                                {
-                                    _btnPlay.IsVisible = true;
-                                }
-                                else
+                                if (isYes.IsCompleted)
                                 {
                                     Play();
                                 }
